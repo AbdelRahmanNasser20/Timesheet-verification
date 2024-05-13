@@ -1,0 +1,5 @@
+.form-select, .form-control {
+    width: 100%; /* Full width of the cell */
+    border: none; /* Remove borders for cleaner integration */
+    background-color: transparent; /* Maintain table styling */
+}

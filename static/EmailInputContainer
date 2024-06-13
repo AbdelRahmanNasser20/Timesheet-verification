@@ -1,0 +1,67 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+console.log("COMPONENTENT");
+
+const EmailInputContainer = () => {
+    const [email, setEmail] = useState('');
+    const [isEditing, setIsEditing] = useState(true);
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        const storedEmail = localStorage.getItem('email');
+        if (storedEmail) {
+            setEmail(storedEmail);
+            setIsEditing(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isEditing) {
+            inputRef.current.focus();
+        }
+    }, [isEditing]);
+
+    const handleSetEmail = () => {
+        localStorage.setItem('email', email);
+        setIsEditing(false);
+    };
+
+    const handleEditEmail = () => {
+        setIsEditing(true);
+    };
+
+    const handleBlur = () => {
+        if (isEditing) {
+            handleSetEmail();
+        }
+    };
+
+    return (
+        <div id="emailInputContainer" className="mb-3">
+            {isEditing ? (
+                <div className="input-group">
+                    <input
+                        type="email"
+                        className="form-control"
+                        ref={inputRef}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onBlur={handleBlur}
+                    />
+                    <button className="btn btn-dark-custom" onClick={handleSetEmail}>
+                        Set
+                    </button>
+                </div>
+            ) : (
+                <div className="input-group">
+                    <span className="form-control">{email}</span>
+                    <button className="btn btn-dark-custom" onClick={handleEditEmail}>
+                        Edit
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default EmailInputContainer;

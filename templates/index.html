@@ -6,47 +6,68 @@
     <title>Time Sheet Viewer</title>
     <!-- Bootstrap for styling the table and other elements -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/read-excel-file@4.0.0/dist/read-excel-file.min.js"></script> -->
+    <!-- <script src="https://unkpg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script> -->
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Upload and Display Time Sheet</h1>
-        <!-- File input for uploading Excel files -->
-        <input type="file" id="fileInput" accept=".xls,.xlsx" style="margin-bottom: 20px;">
+    <!-- Theme Toggle Button -->
+    <!-- <button id="themeToggleBtn" class="btn btn-secondary">Toggle Dark/Light Mode</button> -->
+    
+    <!-- <div id="emailInputContainer">
+        <input type="email" id="emailInput" name="email" required>
+        <button id="setEmailBtn" type="button" class="btn btn-secondary">Set Email</button>
+    </div> -->
 
-        <!-- Table for displaying time sheet entries -->
-        <table class="table table-striped table-dark" id="timeSheetTable">
+    <!-- Hidden templates for dynamic dropdowns within the table cells -->
+    <select id="roleInputTemplate" class="form-select form-select-sm" name="role" style="display: none;">
+        <option value="" disabled selected>Select Role</option>
+        <option value="Back Office">Back Office</option>
+        <option value="ISFT Assistant">ISFT Assistant</option>
+        <option value="ISFT Lead">ISFT Lead</option>
+        <option value="PSS">PSS</option>
+        <option value="Special Event">Special Event</option>
+        <option value="Summer Manager">Summer Manager</option>
+        <option value="Summer Teacher">Summer Teacher</option>
+        <option value="Teacher - Assistant">Teacher - Assistant</option>
+        <option value="Teacher - Lead">Teacher - Lead</option>
+        <option value="Teacher - Online Class">Teacher - Online Class</option>
+        <!-- Add more roles as necessary -->
+    </select>
+    
+
+    <div class="container mt-5">
+        <h1 class="display-4 text-center my-4">Time Sheet Management</h1>
+        
+        <div class="d-flex justify-content-between mb-3">
+            <input type="file" class="form-control w-50" id="fileInput" accept=".xls,.xlsx">
+            <button class="btn btn-dark" id="addRowBtn">Add Row</button>
+        </div>
+        <div id="emailInputContainer"></div> <!-- React component will render here -->
+
+        <table class="table table-striped table-dark mt-4" id="timeSheetTable">
             <thead>
                 <tr>
-                    <th>Select</th>
+                    <th>Action</th>
                     <th>Date</th>
-                    <th>Role</th>
                     <th>Hours</th>
                     <th>Location</th>
+                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Table rows will be dynamically inserted here -->
             </tbody>
         </table>
-
-        <!-- Hidden templates for dynamic dropdowns within the table cells -->
-        <select id="roleInputTemplate" name="role" style="display: none;">
-            <option value="Back Office">Back Office</option>
-            <option value="ISFT Assistant">ISFT Assistant</option>
-            <option value="ISFT Lead">ISFT Lead</option>
-            <!-- Add more roles as necessary -->
-        </select>
-        <select id="locationInputTemplate" name="location" style="display: none;">
-            <option value="loc1">Location 1</option>
-            <option value="loc2">Location 2</option>
-            <!-- Add more locations as necessary -->
-        </select>
     </div>
-
     <!-- Link to the JavaScript file -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>   
+    <script src="/static/bundle.js"></script>
+    
+    <script src="{{ url_for('static', filename='EmailInputContainer.js') }}"></script>   
+    <!-- <script src="EmailInputContainer.js"></script> -->
         <!-- SheetJS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 </body>
